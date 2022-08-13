@@ -5,7 +5,8 @@
 @section('content')
     <h1>Cadastrar Produto</h1>
 
-    <form>
+    <form action="{{ route('products.store') }}" enctype="multipart/form-data" method="POST">
+        @csrf
         @include('products._form')
     </form>
 @endsection
