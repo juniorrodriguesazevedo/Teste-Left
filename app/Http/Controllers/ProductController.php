@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -14,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::with('category')->get();
 
         return view('products.index', compact('products'));
     }
@@ -26,7 +28,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $categories = Category::orderBy('name')->get();
+
+        return view('products.create', compact('categories'));
     }
 
     /**
@@ -37,7 +41,17 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        Product::create($request->all());
+        $data = $request->all();
+
+        if ($request->image) {
+
+            $extension = $request->image->getClientOriginalExtension();
+            $nameImage =  now() . ".$extension";
+
+            $data['image'] = Storage::putFileAs('products', $request->image, $nameImage);
+        }
+
+        Product::create($data);
 
         return redirect()->route('products.index');
     }
@@ -50,7 +64,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return view('products.show', compact('product'));
     }
 
     /**
@@ -61,7 +75,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $categories = Category::orderBy('name')->get();
+
+        return view('products.edit', compact('categories', 'product'));
     }
 
     /**
@@ -73,7 +89,22 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $data = $request->all();
+
+        if ($request->image) {
+            if ($product->image && Storage::exists($product->image)) {
+                Storage::delete($product->image);
+            }
+
+            $extension = $request->image->getClientOriginalExtension();
+            $nameImage =  now() . ".$extension";
+
+            $product['image'] = Storage::putFileAs('products', $request->image, $nameImage);
+        }
+
+        $product->update($data);
+
+        return redirect()->route('products.index');
     }
 
     /**
@@ -84,6 +115,12 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        if ($product->image) {
+            Storage::delete($product->image);
+        }
+
+        $product->delete();
+
+        return redirect()->route('products.index');
     }
 }

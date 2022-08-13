@@ -28,6 +28,6 @@
 
 <style>
     main {
-        padding: 25px;
+        padding: 25px 50px 25px 50px;
     }
 </style>

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->boolean('is_active');
+            $table->enum('is_active', ['Sim', 'Não'])->default('Sim');
             $table->timestamps();
         });
     }
