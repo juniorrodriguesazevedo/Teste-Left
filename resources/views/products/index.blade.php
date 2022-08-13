@@ -60,4 +60,8 @@
               @endforeach
           </tbody>
     </table>
+
+    <div class="d-flex">
+        {!! $products->links() !!}
+    </div>
 @endsection
