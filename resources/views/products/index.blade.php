@@ -9,6 +9,11 @@
         <a href="{{ route('products.create') }}" class="btn btn-sm btn-primary">Adicionar Novo</a>
     </div>
 
+    <div class="mt-2">
+        @include('alerts.success')
+    </div>
+        
+
     <table class="table table-striped">
         <caption><strong>N. Registros: {{ $products->count() }}</strong></caption>
           <thead class="text-primary">

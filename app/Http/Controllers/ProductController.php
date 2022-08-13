@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Products\ProductStoreRequest;
+use App\Http\Requests\Products\ProductUpdateRequest;
 
 class ProductController extends Controller
 {
@@ -16,7 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('category')->paginate(5);
+        $products = Product::with('category')->latest()->paginate(5);
 
         return view('products.index', compact('products'));
     }
@@ -36,10 +37,10 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\ProductStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductStoreRequest $request)
     {
         $data = $request->all();
 
@@ -53,7 +54,7 @@ class ProductController extends Controller
 
         Product::create($data);
 
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')->withStatus('Produto cadastrado com sucesso!');
     }
 
     /**
@@ -83,11 +84,11 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\ProductUpdateRequest  $request
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductUpdateRequest $request, Product $product)
     {
         $data = $request->all();
 
@@ -104,7 +105,7 @@ class ProductController extends Controller
 
         $product->update($data);
 
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')->withStatus('Produto atualizado com sucesso!');
     }
 
     /**
@@ -121,6 +122,6 @@ class ProductController extends Controller
 
         $product->delete();
 
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')->withStatus('Produto deletado com sucesso!');
     }
 }
