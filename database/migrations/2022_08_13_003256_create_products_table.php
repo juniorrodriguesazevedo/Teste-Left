@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('image');
             $table->decimal('price', 8, 2);
-            $table->boolean('is_active');
+            $table->enum('is_active', ['Sim', 'Não']);
             $table->timestamps();
         });
     }
