@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Products\ProductStoreRequest;
 use App\Http\Requests\Products\ProductUpdateRequest;
 
@@ -42,15 +41,7 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request)
     {
-        $data = $request->all();
-
-        if ($request->image) {
-
-            $extension = $request->image->getClientOriginalExtension();
-            $nameImage =  now() . ".$extension";
-
-            $data['image'] = Storage::putFileAs('products', $request->image, $nameImage);
-        }
+        $data = $request->validated();
 
         Product::create($data);
 
@@ -90,18 +81,7 @@ class ProductController extends Controller
      */
     public function update(ProductUpdateRequest $request, Product $product)
     {
-        $data = $request->all();
-
-        if ($request->image) {
-            if ($product->image && Storage::exists($product->image)) {
-                Storage::delete($product->image);
-            }
-
-            $extension = $request->image->getClientOriginalExtension();
-            $nameImage =  now() . ".$extension";
-
-            $product['image'] = Storage::putFileAs('products', $request->image, $nameImage);
-        }
+        $data = $request->validated();
 
         $product->update($data);
 
@@ -116,10 +96,6 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        if ($product->image) {
-            Storage::delete($product->image);
-        }
-
         $product->delete();
 
         return redirect()->route('products.index')->withStatus('Produto deletado com sucesso!');

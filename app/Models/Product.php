@@ -29,7 +29,14 @@ class Product extends Model
     public function price(): Attribute
     {
         return Attribute::make(
-            set: fn ($value) => Str::of($value)->trim()
+            set: fn ($value) => Str::of($value)->trim()->replace(',', '', $value)
+        );
+    }
+
+    public function priceFormatted(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => number_format($this->price, 2, ',', '.')
         );
     }
 

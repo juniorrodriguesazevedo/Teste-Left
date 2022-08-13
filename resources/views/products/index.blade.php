@@ -38,7 +38,7 @@
                     </td>
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->category->name }}</td>
-                    <td>{{ $product->price }}</td>
+                    <td>R${{ $product->price_formatted }}</td>
                     <td >{{ $product->is_active }}</td>
                     <td class="btn-toolbar">
                         <div class="btn-group mr-1">
