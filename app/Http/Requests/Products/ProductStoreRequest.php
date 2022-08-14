@@ -31,4 +31,11 @@ class ProductStoreRequest extends FormRequest
             'is_active' => ['required', 'string']
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'price' => 'preço'
+        ];
+    }
 }

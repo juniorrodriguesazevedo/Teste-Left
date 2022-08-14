@@ -33,4 +33,12 @@ class AdressesUpdateRequest extends FormRequest
             'zip_code' => ['required', 'string', 'min:3', 'max:12']
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'district' => 'bairro',
+            'zip_code' => 'cep'
+        ];
+    }
 }

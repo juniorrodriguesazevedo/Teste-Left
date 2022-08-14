@@ -32,4 +32,11 @@ class ClientStoreRequest extends FormRequest
             'birthday' => ['required', 'date'],
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'birthday' => 'data de aniversário'
+        ];
+    }
 }
