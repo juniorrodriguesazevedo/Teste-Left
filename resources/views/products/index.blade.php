@@ -9,11 +9,14 @@
         <a href="{{ route('products.create') }}" class="btn btn-sm btn-primary">Adicionar Novo</a>
     </div>
 
-    <div class="mt-2">
+    <div class="mt-5">
         @include('alerts.success')
     </div>
-        
 
+    <div class="mt-2">
+        @include('products._form_search')
+    </div>
+        
     <table class="table table-striped">
         <caption><strong>N. Registros: {{ $products->count() }}</strong></caption>
           <thead class="text-primary">
@@ -22,7 +25,6 @@
               <th scope="col">Nome</th>
               <th scope="col">Categoria</th>
               <th scope="col">Preço</th>
-              <th scope="col">Ativo</th>
               <th scope="col" style="width: 200px">Ações</th>
             </tr>
           </thead>
@@ -39,7 +41,6 @@
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->category->name }}</td>
                     <td>R${{ $product->price_formatted }}</td>
-                    <td >{{ $product->is_active }}</td>
                     <td class="btn-toolbar">
                         <div class="btn-group mr-1">
                             <a href="{{ route('products.show', $product->id) }}" class="btn btn-info btn-sm btn-round">
@@ -66,7 +67,13 @@
           </tbody>
     </table>
 
-    <div class="d-flex">
-        {!! $products->links() !!}
+    <div class="card-footer py-4">
+        <nav class="d-flex justify-content-end" aria-label="...">
+            @if (isset($filters))
+                {{ $products->appends($filters)->links() }}
+            @else
+                {{ $products->links() }}
+            @endif
+        </nav>
     </div>
 @endsection

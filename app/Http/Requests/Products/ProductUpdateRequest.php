@@ -28,7 +28,6 @@ class ProductUpdateRequest extends FormRequest
             'name' => ['required', 'string', 'min:3', 'max:100', "unique:products,name,{$this->product->id},id"],
             'image' => ['nullable', 'image'],
             'price' => ['required', 'string'],
-            'is_active' => ['required', 'string']
         ];
     }
 

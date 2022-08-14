@@ -25,7 +25,6 @@ class CategoryUpdateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'min:3', 'max:100', "unique:categories,name,{$this->category->id},id"],
-            'is_active' => ['required', 'string']
         ];
     }
 }

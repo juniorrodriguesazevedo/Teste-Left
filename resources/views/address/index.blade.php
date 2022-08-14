@@ -56,7 +56,9 @@
           </tbody>
     </table>
 
-    <div class="d-flex">
-        {!! $adresses->links() !!}
+    <div class="card-footer py-4">
+        <nav class="d-flex justify-content-end" aria-label="...">
+            {!! $adresses->links() !!}
+        </nav>
     </div>
 @endsection

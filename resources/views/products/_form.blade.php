@@ -13,7 +13,7 @@
           <div class="text-danger">{{ $message }}</div>
         @enderror
       </div>
-      <div class="col-6 mb-3">
+      <div class="col-12 mb-3">
           <label for="category_id" class="form-label">Categoria</label>
           <select class="form-select form-select-lg" name="category_id">
             @foreach($categories as $category)
@@ -28,16 +28,6 @@
               <div class="text-danger">{{ $message }}</div>
             @enderror
           </select>
-      </div>
-      <div class="col-6 mb-3">
-        <label for="is_active" class="form-label">Ativo</label>
-        <select class="form-select form-select-lg" name="is_active">
-            <option value="Sim" @if (isset($product->is_active)) {{ $product->is_active == 'Sim' ? 'selected' : '' }} @endif>Sim</option>
-            <option value="Não" @if (isset($product->is_active)) {{ $product->is_active == 'Não' ? 'selected' : '' }} @endif>Não</option>
-            @error('is_active')
-              <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </select>
       </div>
       <div class="col mb-3">
           <label for="image" class="form-label">Imagem</label>

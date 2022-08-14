@@ -10,6 +10,10 @@ Route::get('/', function () {
     return redirect()->route('products.index');
 });
 
+//  Search
+Route::any('products/search/', [ProductController::class, 'search'])->name('products.search');
+Route::any('clients/search/', [ClientController::class, 'search'])->name('clients.search');
+
 Route::resources([
     'products' => ProductController::class,
     'categories' => CategoryController::class,

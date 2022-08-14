@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use Illuminate\Http\Request;
 use App\Http\Requests\Clients\ClientStoreRequest;
 use App\Http\Requests\Clients\ClientUpdateRequest;
 
@@ -94,5 +95,14 @@ class ClientController extends Controller
         $client->delete();
 
         return redirect()->route('clients.index')->withStatus('Cliente deletado com sucesso!');
+    }
+
+    public function search(Request $request)
+    {
+        $filters = $request->except('_token');
+        $search = $request->input('search');        
+        $clients = Client::search($search)->paginate(5);
+
+        return view('clients.index', compact('filters', 'search', 'clients'));
     }
 }

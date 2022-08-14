@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
+use Illuminate\Http\Request;
 use App\Http\Requests\Products\ProductStoreRequest;
 use App\Http\Requests\Products\ProductUpdateRequest;
 
@@ -99,5 +100,14 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('products.index')->withStatus('Produto deletado com sucesso!');
+    }
+
+    public function search(Request $request)
+    {
+        $filters = $request->except('_token');
+        $search = $request->input('search');
+        $products = Product::search($search)->paginate(5);
+
+        return view('products.index', compact('filters', 'search', 'products'));
     }
 }

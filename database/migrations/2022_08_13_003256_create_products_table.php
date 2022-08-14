@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('image')->nullable();
             $table->decimal('price', 8, 2);
-            $table->enum('is_active', ['Sim', 'Não'])->default('Sim');
             $table->timestamps();
         });
     }

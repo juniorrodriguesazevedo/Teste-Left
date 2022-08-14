@@ -16,7 +16,6 @@ class Product extends Model
         'name',
         'image',
         'price',
-        'is_active',
     ];
 
     public function name(): Attribute
@@ -38,6 +37,11 @@ class Product extends Model
         return Attribute::make(
             get: fn () => number_format($this->price, 2, ',', '.')
         );
+    }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('name', 'LIKE', "%{$search}%");
     }
 
     public function category()

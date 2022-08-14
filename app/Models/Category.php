@@ -13,7 +13,6 @@ class Category extends Model
 
     protected $fillable = [
         'name',
-        'is_active'
     ];
 
     public function name(): Attribute

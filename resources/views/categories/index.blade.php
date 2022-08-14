@@ -19,7 +19,6 @@
           <thead class="text-primary">
             <tr>
               <th scope="col">Nome</th>
-              <th scope="col">Ativo</th>
               <th scope="col" style="width: 200px">Ações</th>
             </tr>
           </thead>
@@ -27,7 +26,6 @@
               @foreach ($categories as $category)
                 <tr>
                     <td>{{ $category->name }}</td>
-                    <td >{{ $category->is_active }}</td>
                     <td class="btn-toolbar">
                         <div class="btn-group mr-1">
                             <a href="{{ route('categories.show', $category->id) }}" class="btn btn-info btn-sm btn-round">
@@ -54,7 +52,9 @@
           </tbody>
     </table>
 
-    <div class="d-flex">
-        {!! $categories->links() !!}
+    <div class="card-footer py-4">
+        <nav class="d-flex justify-content-end" aria-label="...">
+            {!! $categories->links() !!}
+        </nav>
     </div>
 @endsection

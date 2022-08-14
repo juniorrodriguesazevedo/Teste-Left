@@ -62,6 +62,11 @@ class Client extends Model
         );
     }
 
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('name', 'LIKE', "%{$search}%");
+    }
+
     public function adresses()
     {
         return $this->hasMany(Address::class);

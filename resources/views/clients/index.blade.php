@@ -9,10 +9,13 @@
         <a href="{{ route('clients.create') }}" class="btn btn-sm btn-primary">Adicionar Novo</a>
     </div>
 
-    <div class="mt-2">
+    <div class="mt-5">
         @include('alerts.success')
     </div>
         
+    <div class="mt-2">
+        @include('clients._form_search')
+    </div>
 
     <table class="table table-striped">
         <caption><strong>N. Registros: {{ $clients->count() }}</strong></caption>
@@ -54,7 +57,13 @@
           </tbody>
     </table>
 
-    <div class="d-flex">
-        {!! $clients->links() !!}
+    <div class="card-footer py-4">
+        <nav class="d-flex justify-content-end" aria-label="...">
+            @if (isset($filters))
+                {{ $clients->appends($filters)->links() }}
+            @else
+                {{ $clients->links() }}
+            @endif
+        </nav>
     </div>
 @endsection
