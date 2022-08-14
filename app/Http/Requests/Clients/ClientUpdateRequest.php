@@ -26,7 +26,7 @@ class ClientUpdateRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:3', 'max:200'],
             'email' => ['required', 'email', 'min:3', 'max:100', "unique:clients,email,{$this->client->id},id"],
-            'cpf' => ['required', 'string', 'min:9', 'max:16', "unique:clients,cpf,{$this->client->id},id"],
+            'cpf' => ['required', 'cpf', "unique:clients,cpf,{$this->client->id},id"],
             'rg' => ['required', 'string', 'min:4', 'max:16', "unique:clients,rg,{$this->client->id},id"],
             'phone' => ['required', 'string', 'min:8', 'max:16'],
             'birthday' => ['required', 'date'],

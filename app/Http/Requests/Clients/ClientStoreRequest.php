@@ -26,7 +26,7 @@ class ClientStoreRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:3', 'max:200'],
             'email' => ['required', 'email', 'min:3', 'max:100', 'unique:clients,email'],
-            'cpf' => ['required', 'string', 'min:9', 'max:16', 'unique:clients,cpf'],
+            'cpf' => ['required', 'cpf', 'unique:clients,cpf'],
             'rg' => ['required', 'string', 'min:4', 'max:16', 'unique:clients,rg'],
             'phone' => ['required', 'string', 'min:8', 'max:16'],
             'birthday' => ['required', 'date'],
