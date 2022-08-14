@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Address;
-use Illuminate\Http\Request;
+use App\Http\Requests\Adresses\AdressesStoreRequest;
+use App\Http\Requests\Adresses\AdressesUpdateRequest;
 
 class AddressController extends Controller
 {
@@ -14,7 +16,9 @@ class AddressController extends Controller
      */
     public function index()
     {
-        //
+        $adresses = Address::with('client')->latest()->paginate(5);
+
+        return view('address.index', compact('adresses'));
     }
 
     /**
@@ -24,18 +28,24 @@ class AddressController extends Controller
      */
     public function create()
     {
-        //
+        $clients = Client::orderBy('name')->get();
+
+        return view('address.create', compact('clients'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\AdressesStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AdressesStoreRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        Address::create($data);
+
+        return redirect()->route('address.index')->withStatus('Endereço cadastrado com sucesso!');
     }
 
     /**
@@ -46,7 +56,7 @@ class AddressController extends Controller
      */
     public function show(Address $address)
     {
-        //
+        return view('address.show', compact('address'));
     }
 
     /**
@@ -57,19 +67,25 @@ class AddressController extends Controller
      */
     public function edit(Address $address)
     {
-        //
+        $clients = Client::orderBy('name')->get();
+
+        return view('address.edit', compact('clients', 'address'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\AdressesUpdateRequest  $request
      * @param  \App\Models\Address  $address
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Address $address)
+    public function update(AdressesUpdateRequest $request, Address $address)
     {
-        //
+        $data = $request->validated();
+
+        $address->update($data);
+
+        return redirect()->route('address.index')->withStatus('Endereço atualizado com sucesso!');
     }
 
     /**
@@ -80,6 +96,8 @@ class AddressController extends Controller
      */
     public function destroy(Address $address)
     {
-        //
+        $address->delete();
+
+        return redirect()->route('address.index')->withStatus('Endereço deletado com sucesso!');
     }
 }

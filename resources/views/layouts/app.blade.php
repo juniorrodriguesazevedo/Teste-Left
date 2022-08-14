@@ -13,9 +13,9 @@
             <div class="container-md">
               <nav class="nav">
                 <a class="nav-link text-white" href="{{ route('products.index') }}">Produtos</a>
-                <a class="nav-link text-white" href="">Categorias</a>
-                <a class="nav-link text-white" href="">Clientes</a>
-                <a class="nav-link text-white" href="">Endereços</a>
+                <a class="nav-link text-white" href="{{ route('categories.index') }}">Categorias</a>
+                <a class="nav-link text-white" href="{{ route('clients.index') }}">Clientes</a>
+                <a class="nav-link text-white" href="{{ route('address.index') }}">Endereços</a>
               </nav>
             </div>
           </nav>
@@ -28,6 +28,6 @@
 
 <style>
     main {
-        padding: 25px 50px 25px 50px;
+        padding: 25px 100px 25px 100px;
     }
 </style>

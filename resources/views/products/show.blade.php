@@ -15,6 +15,7 @@
             <b>Nome: </b> <p>{{ $product->name }}</p>
             <b>Categoria: </b> <p>{{ $product->category->name }}</p>
             <b>Preço: </b> <p>{{ $product->price }}</p>
+            <b>Ativo: </b> <p>{{ $product->is_active }}</p>
         </div>
     </div>
 @endsection
