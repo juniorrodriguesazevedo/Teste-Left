@@ -42,6 +42,8 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request)
     {
+        //Upload da imagem está no ProductObserver
+
         $data = $request->validated();
 
         Product::create($data);
@@ -82,6 +84,8 @@ class ProductController extends Controller
      */
     public function update(ProductUpdateRequest $request, Product $product)
     {
+        //Upload da imagem está no ProductObserver
+        
         $data = $request->validated();
 
         $product->update($data);
