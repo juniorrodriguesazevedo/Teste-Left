@@ -22,8 +22,6 @@ class ProductObserver
 
             $product['image'] = Storage::putFileAs('products', $product->image, $nameImage);
         }
-
-        $product['price'] = removePriceMask($product->price);
     }
 
     /**
@@ -46,8 +44,6 @@ class ProductObserver
 
             $product['image'] = Storage::putFileAs('products', $product->image, $nameImage);
         }
-
-        $product['price'] = removePriceMask($product->price);
     }
 
     /**
